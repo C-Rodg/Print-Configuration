@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Header } from "semantic-ui-react";
 
 class PrintSidebar extends Component {
 	render() {
 		return (
 			<div className="print-sidebar">
-				<div className="title">Print Settings</div>
+				<Header size="medium">Print Settings</Header>
 				<div className="sidebar-content">
 					<div className="printer-list">PRINTER LIST HERE...</div>
 				</div>
