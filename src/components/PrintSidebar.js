@@ -1,7 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
 
-const PrintSidebar = () => {
-	return <div className="print-sidebar">Print Sidebar</div>;
-};
+class PrintSidebar extends Component {
+	render() {
+		return (
+			<div className="print-sidebar">
+				<div className="title">Print Settings</div>
+				<div className="sidebar-content">
+					<div className="printer-list">PRINTER LIST HERE...</div>
+				</div>
+			</div>
+		);
+	}
+}
 
 export default PrintSidebar;

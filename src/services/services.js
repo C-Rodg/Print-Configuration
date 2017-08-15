@@ -13,3 +13,19 @@ export const updatePrintSettings = printSettings => {
 		printSettings
 	});
 };
+
+export const generateBadge = printerObj => {
+	return axios.post("Services/Methods.asmx/PrintBadge", printerObj);
+};
+
+// SAMPLE printerObj
+// {
+// 	attendeeGuid: null,
+// 	documentId: 'badge',
+// 	markPrinted: false,
+// 	printDocument: '<print></print>',
+// 	printSettingsXml: null,
+// 	printToImage: true,
+// 	printerName: 'Preview Printer',
+// 	registrantDocument: null
+// }
