@@ -2,8 +2,8 @@
 //@import './fonts/material-design-icons/material-icons';
 
 // Colors
-$primary-dark: #00796b;
-$primary-mid-2: #009688;
+$primary-dark: #006358;
+$primary-mid-2: #00796b; //#009688;
 $primary-mid: #44a08d;
 $primary-light: #b2dfdb;
 $text-gray: #c1c1c1;
@@ -51,4 +51,25 @@ body {
 	height: 100vh;
 	position: relative;
 	background-color: #f4f4f7;
+	display: flex;
+}
+
+.right-col {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.print-sidebar {
+	background-color: $primary-dark;
+	min-width: 300px;
+}
+
+.print-preview {
+	flex: 1;
+}
+
+.print-item-props {
+	background-color: $primary-mid-2;
+	min-height: 25%;
 }
