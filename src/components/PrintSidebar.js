@@ -1,56 +1,54 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 
-import { updatePrinterList, selectPrinter } from "../actions";
-
-class PrintSidebar extends Component {
-	componentWillMount() {
-		this.props.updatePrinterList();
-	}
-
-	// Render Printer List
-	renderPrinters(printers) {
-		let opts = [<option value="" key="NO-VALUE" />];
-		if (printers) {
-			printers.forEach(printer => {
-				opts.push(
-					<option value={printer} key={printer}>
-						{printer}
-					</option>
-				);
-			});
-		}
-		return opts;
-	}
-
-	render() {
-		return (
-			<div className="print-sidebar">
-				<div className="sidebar-title">Print Settings</div>
-				<div className="sidebar-content">
-					<div className="printer-list">
-						<label>Select a Printer:</label>
-						<select onChange={ev => this.props.selectPrinter(ev.target.value)}>
-							{this.renderPrinters(this.props.printerList)}
-						</select>
-					</div>
+const PrintSidebar = ({
+	printerList,
+	handleSelectPrinter,
+	selectedPrinter
+}) => {
+	return (
+		<div className="print-sidebar">
+			<div className="sidebar-title">Print Settings</div>
+			<div className="sidebar-content">
+				<div className="printer-list">
+					<label>Select a Printer:</label>
+					<select
+						onChange={ev => handleSelectPrinter(ev.target.value)}
+						value={selectedPrinter}
+					>
+						<option value="" />
+						{printerList &&
+							printerList.map(printer =>
+								<option value={printer} key={printer}>
+									{printer}
+								</option>
+							)}
+					</select>
+				</div>
+				<div className="printer-document">
+					<label>Document:</label>
+					<select />
+				</div>
+				<div className="printer-page">
+					<label>Page:</label>
+					<select />
+				</div>
+				<div className="printer-page-margin">
+					<label>Left:</label>
+					<input type="text" />
+					<label>Right</label>
+					<input type="text" />
+				</div>
+				<div className="printer-section">
+					<label>Section:</label>
+					<select />
+				</div>
+				<div className="printer-item">
+					<label>Print Item:</label>
+					<select />
 				</div>
 			</div>
-		);
-	}
-}
-
-const mapStateToProps = state => {
-	return {
-		printerList: state.settings.printerList
-	};
+		</div>
+	);
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		updatePrinterList: () => dispatch(updatePrinterList()),
-		selectPrinter: printer => dispatch(selectPrinter(printer))
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PrintSidebar);
+export default PrintSidebar;

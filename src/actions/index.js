@@ -5,6 +5,13 @@ export const UPDATE_PRINTER_LIST_ERROR = "UPDATE_PRINTER_LIST_ERROR";
 
 export const SELECT_PRINTER = "SELECT_PRINTER";
 
+export const GET_PRINT_SETTINGS = "GET_PRINT_SETTINGS";
+export const GET_PRINT_SETTINGS_ERROR = "GET_PRINT_SETTINGS_ERROR";
+
+export const UPDATE_PRINT_SETTINGS = "UPDATE_PRINT_SETTINGS";
+export const UPDATE_PRINT_SETTINGS_ERROR = "UPDATE_PRINT_SETTINGS_ERROR";
+
+// List Printers
 export function updatePrinterList() {
 	return dispatch => {
 		axios
@@ -23,9 +30,47 @@ export function updatePrinterList() {
 	};
 }
 
+// Select a printer
 export function selectPrinter(printer) {
 	return {
 		type: SELECT_PRINTER,
 		payload: printer
+	};
+}
+
+// Get Print Settings
+export function getPrintSettings() {
+	return dispatch => {
+		axios
+			.post("Services/Methods.asmx/GetPrintSettings", {})
+			.then(resp => {
+				dispatch({
+					type: GET_PRINT_SETTINGS,
+					payload: resp.data.d.PrintSettings
+				});
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_PRINT_SETTINGS_ERROR
+				});
+			});
+	};
+}
+
+// Update Print Settings
+export function updatePrintSettings() {
+	return dispatch => {
+		axios
+			.post("Services/Methods.asmx/UpdatePrintSettings")
+			.then(resp => {
+				dispatch({
+					type: UPDATE_PRINT_SETTINGS
+				});
+			})
+			.catch(err => {
+				dispatch({
+					type: UPDATE_PRINT_SETTINGS_ERROR
+				});
+			});
 	};
 }
