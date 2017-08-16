@@ -58,10 +58,10 @@ export function getPrintSettings() {
 }
 
 // Update Print Settings
-export function updatePrintSettings() {
+export function updatePrintSettings(printSettings) {
 	return dispatch => {
 		axios
-			.post("Services/Methods.asmx/UpdatePrintSettings")
+			.post("Services/Methods.asmx/UpdatePrintSettings", { printSettings })
 			.then(resp => {
 				dispatch({
 					type: UPDATE_PRINT_SETTINGS
@@ -74,3 +74,29 @@ export function updatePrintSettings() {
 			});
 	};
 }
+
+// Generate a badge
+export function generateBadge() {
+	return dispatch => {
+		axios
+			.post("Services/Methods.asmx/PrintBadge", printerObj)
+			.then(resp => {
+				// Do what...
+			})
+			.catch(err => {
+				///...
+			});
+	};
+}
+
+// SAMPLE printerObj
+// {
+// 	attendeeGuid: null,
+// 	documentId: 'badge',
+// 	markPrinted: false,
+// 	printDocument: '<print></print>',
+// 	printSettingsXml: null,
+// 	printToImage: true,
+// 	printerName: 'Preview Printer',
+// 	registrantDocument: null
+// }
