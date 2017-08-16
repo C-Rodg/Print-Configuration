@@ -1,4 +1,5 @@
 import axios from "axios";
+import { parseString } from "xml2js";
 
 export const UPDATE_PRINTER_LIST = "UPDATE_PRINTER_LIST";
 export const UPDATE_PRINTER_LIST_ERROR = "UPDATE_PRINTER_LIST_ERROR";
@@ -7,6 +8,7 @@ export const SELECT_PRINTER = "SELECT_PRINTER";
 
 export const GET_PRINT_SETTINGS = "GET_PRINT_SETTINGS";
 export const GET_PRINT_SETTINGS_ERROR = "GET_PRINT_SETTINGS_ERROR";
+export const CONVERT_PRINT_SETTINGS_TO_XML = "CONVERT_PRINT_SETTINGS_TO_XML";
 
 export const UPDATE_PRINT_SETTINGS = "UPDATE_PRINT_SETTINGS";
 export const UPDATE_PRINT_SETTINGS_ERROR = "UPDATE_PRINT_SETTINGS_ERROR";
@@ -47,6 +49,15 @@ export function getPrintSettings() {
 				dispatch({
 					type: GET_PRINT_SETTINGS,
 					payload: resp.data.d.PrintSettings
+				});
+				return resp;
+			})
+			.then(resp => {
+				return parseString(resp.data.d.PrintSettings, (err, result) => {
+					dispatch({
+						type: CONVERT_PRINT_SETTINGS_TO_XML,
+						payload: result
+					});
 				});
 			})
 			.catch(err => {

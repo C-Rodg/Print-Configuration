@@ -4,6 +4,7 @@ import {
 	SELECT_PRINTER,
 	GET_PRINT_SETTINGS,
 	GET_PRINT_SETTINGS_ERROR,
+	CONVERT_PRINT_SETTINGS_TO_XML,
 	UPDATE_PRINT_SETTINGS,
 	UPDATE_PRINT_SETTINGS_ERROR
 } from "../actions";
@@ -11,7 +12,8 @@ import {
 const INITAL_SETTINGS = {
 	printerList: [],
 	selectedPrinter: "",
-	printSettingsXml: ""
+	printSettingsXml: "",
+	printSettingsObj: {}
 };
 
 const settings = (state = INITAL_SETTINGS, action) => {
@@ -23,9 +25,13 @@ const settings = (state = INITAL_SETTINGS, action) => {
 		case UPDATE_PRINTER_LIST_ERROR:
 			return state;
 		case GET_PRINT_SETTINGS:
+			console.log("GOT PRINT SETTINGS!");
 			return Object.assign({}, state, { printSettingsXml: action.payload });
 		case GET_PRINT_SETTINGS_ERROR:
 			return state;
+		case CONVERT_PRINT_SETTINGS_TO_XML:
+			console.log(action.payload);
+			return Object.assing({}, state, { printSettingsObj: action.payload });
 		case UPDATE_PRINT_SETTINGS:
 			return state;
 		case UPDATE_PRINT_SETTINGS_ERROR:
