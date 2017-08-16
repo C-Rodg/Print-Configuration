@@ -21,8 +21,7 @@ module.exports = {
 				loader: "babel-loader",
 				exclude: /node_modules/,
 				options: {
-					presets: ["stage-0", "es2015", "react"],
-					plugins: [["lodash", { id: ["lodash", "semantic-ui-react"] }]]
+					presets: ["react", "es2015", "stage-0"]
 				}
 			},
 			{

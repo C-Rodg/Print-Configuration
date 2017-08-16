@@ -1,13 +1,21 @@
 import React, { Component } from "react";
-import { Header } from "semantic-ui-react";
 
 class PrintSidebar extends Component {
+	constructor() {
+		super();
+
+		this.state = {
+			printerList: [],
+			selectedPrinter: ""
+		};
+	}
+
 	render() {
 		return (
 			<div className="print-sidebar">
-				<Header size="medium">Print Settings</Header>
+				<div className="sidebar-title">Print Settings</div>
 				<div className="sidebar-content">
-					<div className="printer-list">PRINTER LIST HERE...</div>
+					<div className="printer-list" />
 				</div>
 			</div>
 		);
