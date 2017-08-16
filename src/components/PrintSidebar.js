@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 
+const opts = [
+	{
+		value: "test1",
+		label: "Preview Printer 1"
+	},
+	{ value: "test2", label: "Test Printer" }
+];
 class PrintSidebar extends Component {
 	constructor() {
 		super();
