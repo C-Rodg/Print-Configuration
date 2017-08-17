@@ -8,7 +8,8 @@ const PrintSidebar = ({
 	currentDocument,
 	currentPage,
 	currentSection,
-	currentItem
+	currentItem,
+	handleSelectNewPrintNode
 }) => {
 	return (
 		<div className="print-sidebar">
@@ -30,7 +31,10 @@ const PrintSidebar = ({
 				</div>
 				<div className="printer-document">
 					<label>Document:</label>
-					<select>
+					<select
+						onChange={ev =>
+							handleSelectNewPrintNode("document", ev.target.value)}
+					>
 						{renderSelectWithId(
 							printSettingsObj.printsettings.documents[0].document
 						)}
@@ -38,7 +42,9 @@ const PrintSidebar = ({
 				</div>
 				<div className="printer-page">
 					<label>Page:</label>
-					<select>
+					<select
+						onChange={ev => handleSelectNewPrintNode("page", ev.target.value)}
+					>
 						{renderSelectWithId(
 							printSettingsObj.printsettings.documents[0].document[
 								currentDocument
@@ -68,7 +74,10 @@ const PrintSidebar = ({
 				</div>
 				<div className="printer-section">
 					<label>Section:</label>
-					<select>
+					<select
+						onChange={ev =>
+							handleSelectNewPrintNode("section", ev.target.value)}
+					>
 						{renderSections(
 							printSettingsObj.printsettings.documents[0].document[
 								currentDocument
@@ -78,7 +87,9 @@ const PrintSidebar = ({
 				</div>
 				<div className="printer-item">
 					<label>Print Item:</label>
-					<select>
+					<select
+						onChange={ev => handleSelectNewPrintNode("item", ev.target.value)}
+					>
 						{renderSelectWithId(
 							printSettingsObj.printsettings.documents[0].document[
 								currentDocument

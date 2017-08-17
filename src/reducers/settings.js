@@ -5,6 +5,7 @@ import {
 	GET_PRINT_SETTINGS,
 	GET_PRINT_SETTINGS_ERROR,
 	CONVERT_PRINT_SETTINGS_TO_XML,
+	SELECT_NEW_PRINT_NODE,
 	UPDATE_PRINT_SETTINGS,
 	UPDATE_PRINT_SETTINGS_ERROR
 } from "../actions";
@@ -82,6 +83,8 @@ const settings = (state = INITAL_SETTINGS, action) => {
 			return state;
 		case UPDATE_PRINT_SETTINGS_ERROR:
 			return state;
+		case SELECT_NEW_PRINT_NODE:
+			return Object.assign({}, state, action.payload);
 		default:
 			return state;
 	}

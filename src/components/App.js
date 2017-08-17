@@ -5,7 +5,12 @@ import PrintItemProps from "./PrintItemProps";
 import PrintPreview from "./PrintPreview";
 import PrintSidebar from "./PrintSidebar";
 
-import { updatePrinterList, selectPrinter, getPrintSettings } from "../actions";
+import {
+	updatePrinterList,
+	selectPrinter,
+	getPrintSettings,
+	selectNewPrintNode
+} from "../actions";
 
 class App extends Component {
 	componentWillMount() {
@@ -22,7 +27,8 @@ class App extends Component {
 			currentPage,
 			currentSection,
 			currentItem,
-			printSettingsObj
+			printSettingsObj,
+			selectNewPrintNode
 		} = this.props;
 		return (
 			<div className="app">
@@ -35,6 +41,7 @@ class App extends Component {
 					currentSection={currentSection}
 					currentItem={currentItem}
 					printSettingsObj={printSettingsObj}
+					handleSelectNewPrintNode={selectNewPrintNode}
 				/>
 				<div className="right-col">
 					<PrintPreview />
@@ -70,7 +77,8 @@ const mapDispatchToProps = dispatch => {
 	return {
 		getPrintSettings: () => dispatch(getPrintSettings()),
 		updatePrinterList: () => dispatch(updatePrinterList()),
-		selectPrinter: printer => dispatch(selectPrinter(printer))
+		selectPrinter: printer => dispatch(selectPrinter(printer)),
+		selectNewPrintNode: (type, idx) => dispatch(selectNewPrintNode(type, idx))
 	};
 };
 

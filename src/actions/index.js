@@ -10,6 +10,8 @@ export const GET_PRINT_SETTINGS = "GET_PRINT_SETTINGS";
 export const GET_PRINT_SETTINGS_ERROR = "GET_PRINT_SETTINGS_ERROR";
 export const CONVERT_PRINT_SETTINGS_TO_XML = "CONVERT_PRINT_SETTINGS_TO_XML";
 
+export const SELECT_NEW_PRINT_NODE = "SELECT_NEW_PRINT_NODE";
+
 export const UPDATE_PRINT_SETTINGS = "UPDATE_PRINT_SETTINGS";
 export const UPDATE_PRINT_SETTINGS_ERROR = "UPDATE_PRINT_SETTINGS_ERROR";
 
@@ -111,3 +113,26 @@ export function generateBadge() {
 // 	printerName: 'Preview Printer',
 // 	registrantDocument: null
 // }
+
+export function selectNewPrintNode(type, idx) {
+	const idxObj = {};
+	if (type === "document") {
+		idxObj.currentDocument = idx;
+		idxObj.currentPage = 0;
+		idxObj.currentSection = 0;
+		idxObj.currentItem = 0;
+	} else if (type === "page") {
+		idxObj.currentPage = idx;
+		idxObj.currentSection = 0;
+		idxObj.currentItem = 0;
+	} else if (type === "section") {
+		idxObj.currentSection = idx;
+		idxObj.currentItem = 0;
+	} else if (type === "item") {
+		idxObj.currentItem = idx;
+	}
+	return {
+		type: SELECT_NEW_PRINT_NODE,
+		payload: idxObj
+	};
+}
