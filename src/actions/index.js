@@ -1,5 +1,5 @@
 import axios from "axios";
-import { parseString } from "xml2js";
+import { parseString, Builder } from "xml2js";
 
 export const UPDATE_PRINTER_LIST = "UPDATE_PRINTER_LIST";
 export const UPDATE_PRINTER_LIST_ERROR = "UPDATE_PRINTER_LIST_ERROR";

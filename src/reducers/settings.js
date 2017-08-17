@@ -9,11 +9,57 @@ import {
 	UPDATE_PRINT_SETTINGS_ERROR
 } from "../actions";
 
+const INITIAL_PRINT_SETTINGS_OBJ = {
+	printsettings: {
+		documents: [
+			{
+				document: [
+					{
+						$: { id: "" },
+						pages: [
+							{
+								page: [
+									{
+										$: { id: "" },
+										margins: [
+											{
+												left: ["0"],
+												right: ["0"]
+											}
+										],
+										sections: [
+											{
+												section: [
+													{
+														printitems: [
+															{
+																printitem: []
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+};
+
 const INITAL_SETTINGS = {
 	printerList: [],
 	selectedPrinter: "",
 	printSettingsXml: "",
-	printSettingsObj: {}
+	printSettingsObj: INITIAL_PRINT_SETTINGS_OBJ,
+	currentDocument: 0,
+	currentPage: 0,
+	currentSection: 0,
+	currentItem: 0
 };
 
 const settings = (state = INITAL_SETTINGS, action) => {
@@ -31,7 +77,7 @@ const settings = (state = INITAL_SETTINGS, action) => {
 			return state;
 		case CONVERT_PRINT_SETTINGS_TO_XML:
 			console.log(action.payload);
-			return Object.assing({}, state, { printSettingsObj: action.payload });
+			return Object.assign({}, state, { printSettingsObj: action.payload });
 		case UPDATE_PRINT_SETTINGS:
 			return state;
 		case UPDATE_PRINT_SETTINGS_ERROR:

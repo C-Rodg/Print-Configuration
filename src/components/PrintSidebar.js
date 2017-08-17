@@ -3,7 +3,12 @@ import React from "react";
 const PrintSidebar = ({
 	printerList,
 	handleSelectPrinter,
-	selectedPrinter
+	selectedPrinter,
+	printSettingsObj,
+	currentDocument,
+	currentPage,
+	currentSection,
+	currentItem
 }) => {
 	return (
 		<div className="print-sidebar">
@@ -16,39 +21,95 @@ const PrintSidebar = ({
 						value={selectedPrinter}
 					>
 						<option value="" />
-						{printerList &&
-							printerList.map(printer =>
-								<option value={printer} key={printer}>
-									{printer}
-								</option>
-							)}
+						{printerList.map(printer =>
+							<option value={printer} key={printer}>
+								{printer}
+							</option>
+						)}
 					</select>
 				</div>
 				<div className="printer-document">
 					<label>Document:</label>
-					<select />
+					<select>
+						{renderSelectWithId(
+							printSettingsObj.printsettings.documents[0].document
+						)}
+					</select>
 				</div>
 				<div className="printer-page">
 					<label>Page:</label>
-					<select />
+					<select>
+						{renderSelectWithId(
+							printSettingsObj.printsettings.documents[0].document[
+								currentDocument
+							].pages[0].page
+						)}
+					</select>
 				</div>
 				<div className="printer-page-margin">
 					<label>Left:</label>
-					<input type="text" />
+					<input
+						type="text"
+						value={
+							printSettingsObj.printsettings.documents[0].document[
+								currentDocument
+							].pages[0].page[currentPage].margins[0].left[0]
+						}
+					/>
 					<label>Right</label>
-					<input type="text" />
+					<input
+						type="text"
+						value={
+							printSettingsObj.printsettings.documents[0].document[
+								currentDocument
+							].pages[0].page[currentPage].margins[0].right[0]
+						}
+					/>
 				</div>
 				<div className="printer-section">
 					<label>Section:</label>
-					<select />
+					<select>
+						{renderSections(
+							printSettingsObj.printsettings.documents[0].document[
+								currentDocument
+							].pages[0].page[currentPage].sections[0].section
+						)}
+					</select>
 				</div>
 				<div className="printer-item">
 					<label>Print Item:</label>
-					<select />
+					<select>
+						{renderSelectWithId(
+							printSettingsObj.printsettings.documents[0].document[
+								currentDocument
+							].pages[0].page[currentPage].sections[0].section[currentSection]
+								.printitems[0].printitem
+						)}
+					</select>
 				</div>
 			</div>
 		</div>
 	);
+};
+
+const renderSections = opts => {
+	return opts.map((item, idx) => {
+		return (
+			<option value={idx} key={idx}>
+				Section {idx + 1}
+			</option>
+		);
+	});
+};
+
+const renderSelectWithId = opts => {
+	return opts.map((item, idx) => {
+		return (
+			<option value={idx} key={idx}>
+				{item.$.id}
+			</option>
+		);
+	});
 };
 
 export default PrintSidebar;

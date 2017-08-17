@@ -14,12 +14,27 @@ class App extends Component {
 	}
 
 	render() {
+		const {
+			printerList,
+			selectedPrinter,
+			selectPrinter,
+			currentDocument,
+			currentPage,
+			currentSection,
+			currentItem,
+			printSettingsObj
+		} = this.props;
 		return (
 			<div className="app">
 				<PrintSidebar
-					printerList={this.props.printerList}
-					handleSelectPrinter={this.props.selectPrinter}
-					selectedPrinter={this.props.selectedPrinter}
+					printerList={printerList}
+					handleSelectPrinter={selectPrinter}
+					selectedPrinter={selectedPrinter}
+					currentDocument={currentDocument}
+					currentPage={currentPage}
+					currentSection={currentSection}
+					currentItem={currentItem}
+					printSettingsObj={printSettingsObj}
 				/>
 				<div className="right-col">
 					<PrintPreview />
@@ -31,10 +46,23 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-	const { printerList, selectedPrinter } = state.settings;
+	const {
+		printerList,
+		selectedPrinter,
+		printSettingsObj,
+		currentDocument,
+		currentPage,
+		currentSection,
+		currentItem
+	} = state.settings;
 	return {
 		printerList,
-		selectedPrinter
+		selectedPrinter,
+		printSettingsObj,
+		currentDocument,
+		currentPage,
+		currentSection,
+		currentItem
 	};
 };
 
