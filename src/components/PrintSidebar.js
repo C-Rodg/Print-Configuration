@@ -16,9 +16,10 @@ const PrintSidebar = ({
 		<div className="print-sidebar">
 			<div className="sidebar-title">Print Settings</div>
 			<div className="sidebar-content">
-				<div className="printer-list">
-					<label>Select a Printer:</label>
+				<div className="printer-list side-item">
+					<label htmlFor="side-label-printer">Select a Printer:</label>
 					<select
+						id="side-label-printer"
 						onChange={ev => handleSelectPrinter(ev.target.value)}
 						value={selectedPrinter}
 					>
@@ -30,9 +31,10 @@ const PrintSidebar = ({
 						)}
 					</select>
 				</div>
-				<div className="printer-document">
-					<label>Document:</label>
+				<div className="printer-document side-item">
+					<label htmlFor="side-label-document">Document:</label>
 					<select
+						id="side-label-document"
 						onChange={ev =>
 							handleSelectNewPrintNode("document", ev.target.value)}
 					>
@@ -41,9 +43,10 @@ const PrintSidebar = ({
 						)}
 					</select>
 				</div>
-				<div className="printer-page">
-					<label>Page:</label>
+				<div className="printer-page side-item">
+					<label htmlFor="side-label-page">Page:</label>
 					<select
+						id="side-label-page"
 						onChange={ev => handleSelectNewPrintNode("page", ev.target.value)}
 					>
 						{renderSelectWithId(
@@ -53,10 +56,12 @@ const PrintSidebar = ({
 						)}
 					</select>
 				</div>
-				<div className="printer-page-margin">
-					<label>Left:</label>
+				<div className="printer-page-margin side-item">
+					<label htmlFor="side-label-margin-left">Left Margin:</label>
 					<input
-						type="text"
+						id="side-label-margin-left"
+						type="number"
+						min="0"
 						value={
 							printSettingsObj.printsettings.documents[0].document[
 								currentDocument
@@ -64,9 +69,13 @@ const PrintSidebar = ({
 						}
 						onChange={ev => handleMarginChanges("left", ev.target.value)}
 					/>
-					<label>Right</label>
+				</div>
+				<div className="printer-page-margin side-item">
+					<label htmlFor="side-label-margin-right">Right Margin:</label>
 					<input
-						type="text"
+						id="side-label-margin-right"
+						type="number"
+						min="0"
 						value={
 							printSettingsObj.printsettings.documents[0].document[
 								currentDocument
@@ -75,9 +84,10 @@ const PrintSidebar = ({
 						onChange={ev => handleMarginChanges("right", ev.target.value)}
 					/>
 				</div>
-				<div className="printer-section">
-					<label>Section:</label>
+				<div className="printer-section side-item">
+					<label htmlFor="side-label-section">Section:</label>
 					<select
+						id="side-label-section"
 						onChange={ev =>
 							handleSelectNewPrintNode("section", ev.target.value)}
 					>
@@ -88,9 +98,10 @@ const PrintSidebar = ({
 						)}
 					</select>
 				</div>
-				<div className="printer-item">
-					<label>Print Item:</label>
+				<div className="printer-item side-item">
+					<label htmlFor="side-label-printer-item">Print Item:</label>
 					<select
+						id="side-label-printer-item"
 						onChange={ev => handleSelectNewPrintNode("item", ev.target.value)}
 					>
 						{renderSelectWithId(

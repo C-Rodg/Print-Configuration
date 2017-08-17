@@ -22,7 +22,6 @@ class App extends Component {
 	// Margins changed - create path to margins and update value
 	handleMarginChanges = (side, val) => {
 		const { currentDocument, currentPage, updatePageMargins } = this.props;
-		//const location = `printsettings.documents[0].document[${currentDocument}].pages[0].page[${currentPage}].margins[0][${side}][0]`;
 		const locationArray = [
 			"printsettings",
 			"documents",
@@ -81,6 +80,7 @@ class App extends Component {
 	}
 }
 
+// Incoming properties from state
 const mapStateToProps = state => {
 	const {
 		printerList,
@@ -102,6 +102,7 @@ const mapStateToProps = state => {
 	};
 };
 
+// Outgoing Events
 const mapDispatchToProps = dispatch => {
 	return {
 		getPrintSettings: () => dispatch(getPrintSettings()),

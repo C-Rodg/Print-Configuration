@@ -35,7 +35,11 @@ const INITIAL_PRINT_SETTINGS_OBJ = {
 													{
 														printitems: [
 															{
-																printitem: []
+																printitem: [
+																	{
+																		$: { id: "" }
+																	}
+																]
 															}
 														]
 													}
