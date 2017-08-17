@@ -6,6 +6,7 @@ import {
 	GET_PRINT_SETTINGS_ERROR,
 	CONVERT_PRINT_SETTINGS_TO_XML,
 	SELECT_NEW_PRINT_NODE,
+	UPDATE_PAGE_MARGINS,
 	UPDATE_PRINT_SETTINGS,
 	UPDATE_PRINT_SETTINGS_ERROR
 } from "../actions";
@@ -63,6 +64,7 @@ const INITAL_SETTINGS = {
 	currentItem: 0
 };
 
+// Root Settings Reducer
 const settings = (state = INITAL_SETTINGS, action) => {
 	switch (action.type) {
 		case SELECT_PRINTER:
@@ -83,8 +85,33 @@ const settings = (state = INITAL_SETTINGS, action) => {
 			return state;
 		case UPDATE_PRINT_SETTINGS_ERROR:
 			return state;
+		case UPDATE_PAGE_MARGINS:
+			return Object.assign({}, state, {
+				printSettingsObj: marginChangeReducer(state.printSettingsObj, action)
+			});
 		case SELECT_NEW_PRINT_NODE:
 			return Object.assign({}, state, action.payload);
+		default:
+			return state;
+	}
+};
+
+// Change Margin Settings reducer
+const marginChangeReducer = (state = INITIAL_PRINT_SETTINGS_OBJ, action) => {
+	switch (action.type) {
+		case UPDATE_PAGE_MARGINS:
+			let newPrintObject = Object.assign({}, state),
+				pointer = newPrintObject,
+				len = action.location.length - 1,
+				i = 0;
+			for (; i < len; i++) {
+				pointer = pointer[action.location[i]];
+				if (pointer.hasOwnProperty(action.location[len])) {
+					pointer[action.location[len]][0] = action.value;
+					break;
+				}
+			}
+			return newPrintObject;
 		default:
 			return state;
 	}

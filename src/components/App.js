@@ -9,7 +9,8 @@ import {
 	updatePrinterList,
 	selectPrinter,
 	getPrintSettings,
-	selectNewPrintNode
+	selectNewPrintNode,
+	updatePageMargins
 } from "../actions";
 
 class App extends Component {
@@ -17,6 +18,27 @@ class App extends Component {
 		this.props.getPrintSettings();
 		this.props.updatePrinterList();
 	}
+
+	// Margins changed - create path to margins and update value
+	handleMarginChanges = (side, val) => {
+		const { currentDocument, currentPage, updatePageMargins } = this.props;
+		//const location = `printsettings.documents[0].document[${currentDocument}].pages[0].page[${currentPage}].margins[0][${side}][0]`;
+		const locationArray = [
+			"printsettings",
+			"documents",
+			"0",
+			"document",
+			currentDocument,
+			"pages",
+			"0",
+			"page",
+			currentPage,
+			"margins",
+			"0",
+			side
+		];
+		updatePageMargins(locationArray, val);
+	};
 
 	render() {
 		const {
@@ -42,10 +64,17 @@ class App extends Component {
 					currentItem={currentItem}
 					printSettingsObj={printSettingsObj}
 					handleSelectNewPrintNode={selectNewPrintNode}
+					handleMarginChanges={this.handleMarginChanges}
 				/>
 				<div className="right-col">
 					<PrintPreview />
-					<PrintItemProps />
+					<PrintItemProps
+						currentDocument={currentDocument}
+						currentPage={currentPage}
+						currentSection={currentSection}
+						currentItem={currentItem}
+						printSettingsObj={printSettingsObj}
+					/>
 				</div>
 			</div>
 		);
@@ -78,7 +107,8 @@ const mapDispatchToProps = dispatch => {
 		getPrintSettings: () => dispatch(getPrintSettings()),
 		updatePrinterList: () => dispatch(updatePrinterList()),
 		selectPrinter: printer => dispatch(selectPrinter(printer)),
-		selectNewPrintNode: (type, idx) => dispatch(selectNewPrintNode(type, idx))
+		selectNewPrintNode: (type, idx) => dispatch(selectNewPrintNode(type, idx)),
+		updatePageMargins: (loc, val) => dispatch(updatePageMargins(loc, val))
 	};
 };
 

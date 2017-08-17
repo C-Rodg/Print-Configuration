@@ -9,7 +9,8 @@ const PrintSidebar = ({
 	currentPage,
 	currentSection,
 	currentItem,
-	handleSelectNewPrintNode
+	handleSelectNewPrintNode,
+	handleMarginChanges
 }) => {
 	return (
 		<div className="print-sidebar">
@@ -61,6 +62,7 @@ const PrintSidebar = ({
 								currentDocument
 							].pages[0].page[currentPage].margins[0].left[0]
 						}
+						onChange={ev => handleMarginChanges("left", ev.target.value)}
 					/>
 					<label>Right</label>
 					<input
@@ -70,6 +72,7 @@ const PrintSidebar = ({
 								currentDocument
 							].pages[0].page[currentPage].margins[0].right[0]
 						}
+						onChange={ev => handleMarginChanges("right", ev.target.value)}
 					/>
 				</div>
 				<div className="printer-section">

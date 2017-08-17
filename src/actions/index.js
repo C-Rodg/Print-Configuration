@@ -11,6 +11,7 @@ export const GET_PRINT_SETTINGS_ERROR = "GET_PRINT_SETTINGS_ERROR";
 export const CONVERT_PRINT_SETTINGS_TO_XML = "CONVERT_PRINT_SETTINGS_TO_XML";
 
 export const SELECT_NEW_PRINT_NODE = "SELECT_NEW_PRINT_NODE";
+export const UPDATE_PAGE_MARGINS = "UPDATE_PAGE_MARGINS";
 
 export const UPDATE_PRINT_SETTINGS = "UPDATE_PRINT_SETTINGS";
 export const UPDATE_PRINT_SETTINGS_ERROR = "UPDATE_PRINT_SETTINGS_ERROR";
@@ -114,6 +115,7 @@ export function generateBadge() {
 // 	registrantDocument: null
 // }
 
+// Select new print node - document, page, section, item
 export function selectNewPrintNode(type, idx) {
 	const idxObj = {};
 	if (type === "document") {
@@ -134,5 +136,14 @@ export function selectNewPrintNode(type, idx) {
 	return {
 		type: SELECT_NEW_PRINT_NODE,
 		payload: idxObj
+	};
+}
+
+// Update page margins
+export function updatePageMargins(location, value) {
+	return {
+		type: UPDATE_PAGE_MARGINS,
+		location,
+		value
 	};
 }
