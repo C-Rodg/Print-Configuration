@@ -106,12 +106,12 @@ export function generateBadge() {
 // SAMPLE printerObj
 // {
 // 	attendeeGuid: null,
-// 	documentId: 'badge',
+// 	documentId: 'badge', -- have to extract this value
 // 	markPrinted: false,
-// 	printDocument: '<print></print>',
+// 	printDocument: '<print></print>', -- works as an empty value to get image size
 // 	printSettingsXml: null,
 // 	printToImage: true,
-// 	printerName: 'Preview Printer',
+// 	printerName: 'Preview Printer',  -- from selected dropdown
 // 	registrantDocument: null
 // }
 
