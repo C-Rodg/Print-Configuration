@@ -4,15 +4,19 @@ const path = require("path"),
 	ExtractTextPlugin = require("extract-text-webpack-plugin"),
 	UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin"),
 	BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-		.BundleAnalyzerPlugin;
+		.BundleAnalyzerPlugin,
+	package = require("./package.json");
 
 module.exports = {
 	devtool: "inline-source-map",
 	target: "web",
-	entry: "./src/index.js",
+	entry: {
+		app: "./src/index.js",
+		vendor: Object.keys(package.dependencies)
+	},
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js"
+		filename: "[name].bundle.js"
 	},
 	module: {
 		rules: [
@@ -84,10 +88,20 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin("styles.css"),
+		new ExtractTextPlugin({
+			filename: "[name].css?[hash]-[chunkhash]-[contenthash]-[name]",
+			disable: false,
+			allChunks: true
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: "vendor"
+		}),
 		new HtmlWebpackPlugin({
 			title: "Print Settings",
-			template: "src/index.html"
+			template: "src/index.html",
+			filename: "./index.html",
+			chunks: ["vendor", "app"],
+			favicon: "./src/static/favicon.ico"
 		}),
 		new UglifyJsPlugin({
 			beautify: true,

@@ -2,17 +2,19 @@ const path = require("path"),
 	webpack = require("webpack"),
 	HtmlWebpackPlugin = require("html-webpack-plugin"),
 	ExtractTextPlugin = require("extract-text-webpack-plugin"),
-	UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
+	UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin"),
+	package = require("./package.json");
 
 module.exports = {
 	devtool: "source-map",
 	target: "web",
 	entry: {
-		app: "./src/index.js"
+		app: "./src/index.js",
+		vendor: Object.keys(package.dependencies)
 	},
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js"
+		filename: "[name].bundle.js"
 	},
 	module: {
 		rules: [
@@ -85,10 +87,20 @@ module.exports = {
 		new webpack.DefinePlugin({
 			"process.env": { NODE_ENV: JSON.stringify("production") }
 		}),
-		new ExtractTextPlugin("styles.css"),
+		new ExtractTextPlugin({
+			filename: "[name].css?[hash]-[chunkhash]-[contenthash]-[name]",
+			disable: false,
+			allChunks: true
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: "vendor"
+		}),
 		new HtmlWebpackPlugin({
 			title: "Print Settings",
 			template: "src/index.html",
+			filename: "./index.html",
+			chunks: ["vendor", "app"],
+			favicon: "./src/static/favicon.ico",
 			env: true
 		}),
 		new UglifyJsPlugin({
